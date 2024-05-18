@@ -1,4 +1,5 @@
-# aws-and-terraform-demystified
+# AWS and Terraform Demystified
+## Creating a NAT Instance using Terraform
 
 Repository containining source code and scripts for the Medium Article I wrote about creating a NAT Instance using terraform.
 
