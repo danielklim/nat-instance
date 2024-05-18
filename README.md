@@ -14,4 +14,4 @@ Repository containining source code and scripts for the Medium Article I wrote a
 
 ### Using ipes to decode pem to pem format
 
->`aws secretsmanager get-secret-value --secret-id example_ssh_key_pem_testing --query SecretString --output text | base64 --decode`
+>`aws secretsmanager get-secret-value --secret-id example_ssh_key_pem_testing --query SecretString --output text | base64 --decode > test.pem`
