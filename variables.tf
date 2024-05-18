@@ -3,6 +3,11 @@ variable "main_cidr_block" {
   type                = string
 }
 
+variable "availability_zones" {
+  description         = "Availability Zones used within the region."
+  type                = list(string)
+}
+
 variable "public_cidr_blocks" {
   type               = list(string)
   description        = "Public Subnet CIDR Blocks."
@@ -16,11 +21,6 @@ variable "private_cidr_blocks" {
 variable "private_ips_for_ssh" {
   type               = list(string)
   description        = "List of IP Addresses used for SSH Ingress."
-}
-
-variable "environment" {
-    description     = "Environment the AWS Resources will be provisioned to."
-    type            = string
 }
 
 variable "region" {
