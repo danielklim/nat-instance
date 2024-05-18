@@ -1,11 +1,11 @@
 locals {
-    environment                         = "Testing"
+    environment                         = "testing"
 }
 
 
 module "example_vpc" {
     source                              = "./vpc"
-    vpc_name                            = "Protein Meal Prep Staging VPC"
+    vpc_name                            = "NAT Instance VPC"
     main_cidr_block                     = var.main_cidr_block
     public_cidr_blocks                  = var.public_cidr_blocks
     private_cidr_blocks                 = var.private_cidr_blocks
@@ -37,8 +37,8 @@ module "example_nat_instance" {
 
 module "example_ssh_key_secret" {
     source                              = "./secrets"
-    name                                = "example_ssh_key"
-    description                         = "Private Key used for SSH connection to EC2 Instances."
+    name                                = "example_ssh_key_pem"
+    description                         = "pem used for NAT Instance connection"
     environment                         = local.environment
-    secret_string                       = module.example_nat_instance_key_pair.sensitive_output.private_key
+    secret_string                       = module.example_nat_instance_key_pair.sensitive_output.pem
 }

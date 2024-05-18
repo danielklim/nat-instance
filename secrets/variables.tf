@@ -9,12 +9,12 @@ variable "description" {
 }
 
 variable "secret_string" {
-    description             = "Secret String passed as raw json"
-    type                    = any
+    description             = "Secrets passed as a string value."
+    type                    = string
     sensitive               = true
 }
 
 variable "environment" {
-    description             = "Secret String passed as raw json"
+    description             = "Environment secrets being provisioned in."
     type                    = string
 }
