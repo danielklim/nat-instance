@@ -3,6 +3,9 @@
 
 Repository containining source code and scripts for the Medium Article I wrote about creating a NAT Instance using terraform.
 
+## Output
+
+nat_instance output
 
 ## Key secretsmanager cli commands to accessing secrets stored using terraform
 

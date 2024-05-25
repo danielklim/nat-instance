@@ -1,6 +1,8 @@
+# General terraform files
+
 /.terraform
-*terraform.*
-*.terraform.*
+terraform.*
+.terraform.*
 
 # pem files
 
