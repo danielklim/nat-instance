@@ -11,10 +11,9 @@ module "example_vpc" {
     private_subnets                     = var.private_cidr_blocks
     azs                                 = var.availability_zones
     tags = {
-        Terraform                           = "True"
+        Terraform                           = true
         environment                         = local.environment
     }
-    #region                              = var.region
 }
 
 module "example_nat_instance_key_pair" {
@@ -25,7 +24,7 @@ module "example_nat_instance_key_pair" {
 module "example_nat_instance" {
     source                              = "./nat_instance"
     nat_instance_ami_id                 = "ami-09abb6457c770f890"
-    main_vpc_id                         = module.example_vpc.vpc_arn
+    main_vpc_id                         = module.example_vpc.vpc_id
     main_cidr_block                     = var.main_cidr_block
     public_cidr_blocks                  = var.public_cidr_blocks
     private_cidr_blocks                 = var.private_cidr_blocks
@@ -40,7 +39,7 @@ module "example_nat_instance" {
 
 module "example_ssh_key_secret" {
     source                              = "./secrets"
-    name                                = "example_ssh_key_pem"
+    name                                = "example_ssh_key_pem_2"
     description                         = "pem used for NAT Instance connection"
     environment                         = local.environment
     secret_string                       = module.example_nat_instance_key_pair.sensitive_output.pem

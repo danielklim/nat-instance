@@ -8,27 +8,27 @@ output "testing_public_subnets_output" {
     value                   = module.example_vpc.public_subnets
 }
 
-output "staging_private_subnets_output" {
+output "testing_private_subnets_output" {
     description             = "ARNs for the Private Subnets for the testing environment."
     value                   = module.example_vpc.private_subnets
 }
 
-output "staging_main_route_table_output" {
+output "testing_main_route_table_output" {
     description             = "ARN for the Main Route Table."
     value                   = module.example_vpc.vpc_main_route_table_id
 }
 
-output "staging_private_route_tables_output" {
+output "testing_private_route_tables_output" {
     description             = "Main Route Table ARN for testing environment."
     value                   = module.example_vpc.vpc_main_route_table_id
 }
 
-output "staging_nat_instance_output" {
+output "testing_nat_instance_output" {
     description             = "Output from NAT Instance Module."
     value                   = module.example_nat_instance.nat_instances_output
 }
 
-output "staging_nat_testing_instances_output" {
+output "testing_nat_testing_instances_output" {
     description             = "Output from the NAT Instance Module for the NAT Instances in the private subnet for testing."
     value                   = module.example_nat_instance.nat_testing_instances_output
 }
