@@ -91,7 +91,7 @@ module "nat_instances" {
 | <a name="vpc"></a> [vpc](https://github.com/terraform-aws-modules/terraform-aws-vpc) | terraform-aws-modules/vpc/aws | n/a |
 | <a name="key_pair"></a> [key_pair](#module\key_pair) | ./module/key_pair | n/a |
 | <a name="nat_instance"></a> [nat_instance](#module\nat_instance) | ./module/nat_instance | n/a |
-| <a name="secrets"></a> [nat_instance](#module\secrets) | ./module/secrets | n/a |
+| <a name="secrets"></a> [secrets](#module\secrets) | ./module/secrets | n/a |
 
 ## Inputs
 
