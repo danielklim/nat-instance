@@ -1,7 +1,71 @@
 # AWS and Terraform Demystified - Creating a NAT Instance using Terraform
 
-Repository containining the source code, root module and example for the Medium Article I wrote about creating a NAT Instance using terraform.
+Repository containining the source code, root module for the Medium Article I wrote about creating a NAT Instance using terraform.
 
+## Usage
+
+### Creates NAT Instances within each public subnet of a VPC.
+
+```hcl
+locals {
+    vpc_name                            = "NAT Instance VPC"
+    ssh_key_secret_name                 = "example_ssh_key_pem_3"
+    ssh_key_secret_description          = "pem used for NAT Instance connection"
+    nat_instance_key_name               = "nat_instance_key"
+    main_cidr_block                     = "10.0.0.0/16"
+    public_cidr_blocks                  = ["10.0.1.0/24", "10.0.2.0/24"]
+    private_cidr_blocks                 = ["10.0.5.0/24", "10.0.6.0/24"]
+    region                              = "eu-west-2"
+    availability_zones                  = ["eu-west-2a", "eu-west-2b"]
+    private_ips_for_ssh                 = ["213.89.115.84/32"]
+    nat_instance_ami_id                 = "ami-09abb6457c770f890"
+    tags                                = {
+        Environment                         = "testing"
+        Terraform                           = true
+    }
+}
+
+module "vpc" {
+    source                              = "terraform-aws-modules/vpc/aws"
+    name                                = local.vpc_name
+    cidr                                = local.main_cidr_block
+    public_subnets                      = local.public_cidr_blocks
+    private_subnets                     = local.private_cidr_blocks
+    azs                                 = local.availability_zones
+    tags                                = local.tags
+}
+
+module "nat_instance_key_pair" {
+    source                              = "../module/key_pair"
+    key_name                            = local.nat_instance_key_name
+    tags                                = local.tags
+}
+
+module "ssh_key_secret" {
+    source                              = "../module/secrets"
+    name                                = local.ssh_key_secret_name
+    description                         = local.ssh_key_secret_description
+    secret_string                       = module.nat_instance_key_pair.sensitive_output.pem
+    tags                                = local.tags
+}
+
+module "nat_instances" {
+    source                              = "../module/nat_instance"
+    nat_instance_ami_id                 = local.nat_instance_ami_id
+    main_vpc_id                         = module.vpc.vpc_id
+    main_cidr_block                     = local.main_cidr_block
+    public_cidr_blocks                  = local.public_cidr_blocks
+    create_nat_testing_instances        = true
+    private_cidr_blocks                 = local.private_cidr_blocks
+    public_subnet_ids                   = module.vpc.public_subnets
+    private_subnet_ids                  = module.vpc.private_subnets
+    private_subnet_route_table_ids      = module.vpc.private_route_table_ids
+    private_ips_for_ssh                 = local.private_ips_for_ssh
+    ec2_key_name                        = module.nat_instance_key_pair.output.key_name
+    region                              = local.region
+    tags                                = local.tags
+}
+```
 
 ## Requirements
 
@@ -18,7 +82,7 @@ Repository containining the source code, root module and example for the Medium 
 
 ## Examples
 
-- [Main Example](https://github.com/Mark-Barbaric/aws-and-terraform-demystified-nat-instance)
+- [Main Example](https://github.com/Mark-Barbaric/aws-and-terraform-demystified-nat-instance/examples)
 
 ## Modules
 
