@@ -32,16 +32,12 @@ resource "aws_instance" "nat_aws_instances" {
         volume_type                 = "gp2"
         encrypted                   = true
     }
-
-    tags = {
-        Name                        = "NAT EC2 Instance ${count.index + 1}"
-        terraform                   = true
-        environment                 = "dev"
-    }
+    tags                            = "${merge(var.tags,
+                                                tomap({"Name" = "NAT EC2 Instance ${count.index + 1}"}))}"
 }
 
 resource "aws_instance" "nat_testing_aws_instances" {
-    count                           = length(var.private_subnet_ids)
+    count                           = var.create_nat_testing_instances ? length(var.private_subnet_ids) : 0
     ami                             = data.aws_ami.amzn_linux_2023_ami.id
     instance_type                   = "t2.micro"
     subnet_id                       = element(var.private_subnet_ids[*], count.index)
@@ -54,9 +50,6 @@ resource "aws_instance" "nat_testing_aws_instances" {
         encrypted                   = true
     }
 
-    tags = {
-        Name                        = "NAT Testing EC2 Instance ${count.index + 1}"
-        terraform                   = true
-        environment                 = "dev"
-    }
+    tags                            = "${merge(var.tags,
+                                                tomap({"Name" = "NAT Testing EC2 Instance ${count.index + 1}"}))}"            
 }
