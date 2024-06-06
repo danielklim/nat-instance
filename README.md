@@ -5,8 +5,14 @@ Repository containining source code and scripts for the Medium Article I wrote a
 
 ## Requirements
 
-| test |
-| --- |
+| Name         | Version       |
+| ---          |  --           |
+| terraform    |               |
+| aws          | 5.48          |
+
+## Inputs
+
+## Outputs
 
 ## Key secretsmanager cli commands to accessing secrets stored using terraform
 

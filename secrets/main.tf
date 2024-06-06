@@ -1,11 +1,7 @@
 resource "aws_secretsmanager_secret" "main" {
     name                        = "${var.name}_${var.environment}"
     description                 = "${var.description}"
-
-    tags = {
-        terraform               = true
-        environment             = var.environment
-    }
+    tags                        = merge(var.tags, try(each.value.tags, {}))
 }
 
 resource "aws_secretsmanager_secret_version" "main" {

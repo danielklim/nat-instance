@@ -1,21 +1,23 @@
 locals {
     environment                         = "testing"
+    vpc_name                            = "NAT Instance VPC"
     ssh_key_secret_name                 = "example_ssh_key_pem_2"
     ssh_key_secret_description          = "pem used for NAT Instance connection"
+    tags                                = {
+        Environment                         = local.environment
+        Terraform                           = true
+    }
 }
 
 
 module "example_vpc" {
     source                              = "terraform-aws-modules/vpc/aws"
-    name                                = "NAT Instance VPC"
+    name                                = local.vpc_name
     cidr                                = var.main_cidr_block
     public_subnets                      = var.public_cidr_blocks
     private_subnets                     = var.private_cidr_blocks
     azs                                 = var.availability_zones
-    tags = {
-        Terraform                           = true
-        environment                         = local.environment
-    }
+    tags                                = local.tags
 }
 
 module "example_nat_instance_key_pair" {
@@ -45,4 +47,5 @@ module "example_ssh_key_secret" {
     description                         = local.ssh_key_secret_description
     environment                         = local.environment
     secret_string                       = module.example_nat_instance_key_pair.sensitive_output.pem
+    tags                                = local.tags
 }
