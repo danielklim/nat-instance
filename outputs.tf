@@ -25,10 +25,10 @@ output "testing_private_route_tables_output" {
 
 output "testing_nat_instance_output" {
     description             = "Output from NAT Instance Module."
-    value                   = module.example_nat_instance.nat_instances_output
+    value                   = module.example_nat_instances.nat_instances_output
 }
 
 output "testing_nat_testing_instances_output" {
     description             = "Output from the NAT Instance Module for the NAT Instances in the private subnet for testing."
-    value                   = module.example_nat_instance.nat_testing_instances_output
+    value                   = module.example_nat_instances.nat_testing_instances_output
 }

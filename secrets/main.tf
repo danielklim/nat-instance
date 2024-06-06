@@ -1,7 +1,8 @@
 resource "aws_secretsmanager_secret" "main" {
-    name                        = "${var.name}_${var.environment}"
+    name                        = "${var.name}"
     description                 = "${var.description}"
-    tags                        = merge(var.tags, try(each.value.tags, {}))
+    tags                        = "${merge(var.tags,
+                                            tomap({"Name" = "${var.name} Secrets Manager Secret"}))}"
 }
 
 resource "aws_secretsmanager_secret_version" "main" {

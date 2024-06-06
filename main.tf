@@ -1,8 +1,9 @@
 locals {
     environment                         = "testing"
     vpc_name                            = "NAT Instance VPC"
-    ssh_key_secret_name                 = "example_ssh_key_pem_2"
+    ssh_key_secret_name                 = "example_ssh_key_pem"
     ssh_key_secret_description          = "pem used for NAT Instance connection"
+    nat_instance_key_name               = "nat_instance_key"
     tags                                = {
         Environment                         = local.environment
         Terraform                           = true
@@ -22,7 +23,16 @@ module "example_vpc" {
 
 module "example_nat_instance_key_pair" {
     source                              = "./key_pair"
-    key_name                            = "nat_instance_${local.environment}"
+    key_name                            = local.nat_instance_key_name
+    tags                                = local.tags
+}
+
+module "example_ssh_key_secret" {
+    source                              = "./secrets"
+    name                                = local.ssh_key_secret_name
+    description                         = local.ssh_key_secret_description
+    secret_string                       = module.example_nat_instance_key_pair.sensitive_output.pem
+    tags                                = local.tags
 }
 
 module "example_nat_instances" {
@@ -39,13 +49,5 @@ module "example_nat_instances" {
     private_ips_for_ssh                 = var.private_ips_for_ssh
     ec2_key_name                        = module.example_nat_instance_key_pair.output.key_name
     region                              = var.region
-    tags                                = local.tags
-}
-
-module "example_ssh_key_secret" {
-    source                              = "./secrets"
-    name                                = local.ssh_key_secret_name
-    description                         = local.ssh_key_secret_description
-    secret_string                       = module.example_nat_instance_key_pair.sensitive_output.pem
     tags                                = local.tags
 }

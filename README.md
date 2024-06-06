@@ -10,6 +10,13 @@ Repository containining source code and scripts for the Medium Article I wrote a
 | terraform    |               |
 | aws          | 5.48          |
 
+## Example Usage
+
+### 
+
+
+
+
 ## Inputs
 
 ## Outputs

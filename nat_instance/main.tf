@@ -33,7 +33,7 @@ resource "aws_instance" "nat_aws_instances" {
         encrypted                   = true
     }
     tags                            = "${merge(var.tags,
-                                                map("Name", "NAT EC2 Instance ${count.index + 1}"))}"
+                                                tomap({"Name" = "NAT EC2 Instance ${count.index + 1}"}))}"
 }
 
 resource "aws_instance" "nat_testing_aws_instances" {
@@ -51,5 +51,5 @@ resource "aws_instance" "nat_testing_aws_instances" {
     }
 
     tags                            = "${merge(var.tags,
-                                                map("Name", "NAT Testing EC2 Instance ${count.index + 1}"))}"            
+                                                tomap({"Name" = "NAT Testing EC2 Instance ${count.index + 1}"}))}"            
 }
