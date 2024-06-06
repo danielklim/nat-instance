@@ -2,45 +2,64 @@
 # VPC Variables
 #####################################################################
 
-variable "main_cidr_block" {
-  description         = "CIDR Block for main vpc"
-  type                = string
+variable "vpc_name" {
+  description             = "Name of the VPC."
+  type                    = string
 }
 
-variable "availability_zones" {
-  description         = "Availability Zones used within the region."
-  type                = list(string)
+variable "main_cidr_block" {
+  description             = "CIDR Block for the Main VPC."
+  type                    = string
 }
 
 variable "public_cidr_blocks" {
-  type               = list(string)
-  description        = "Public Subnet CIDR Blocks."
+  description             = "Public Subnet CIDR Blocks."
+  type                    = list(string)
 }
  
 variable "private_cidr_blocks" {
-  type               = list(string)
-  description        = "Private Subnet CIDR Blocks."
+  type                    = list(string)
+  description             = "Private Subnet CIDR Blocks."
 }
 
+variable "availability_zones" {
+  description             = "Availability Zones used within the region."
+  type                    = list(string)
+}
+
+#####################################################################
+# NAT Instance Key Pair Variables
+#####################################################################
+
+variable "nat_instance_key_name" {
+  description             = "Name of the key pair used for the EC2 Instances."
+  type                    = string
+}
+
+#####################################################################
+# SSH Key Secrets
+#####################################################################
+
+variable "ssh_key_secret_name" {
+  description             = "Name of the ssh key secret."
+  type                    = string
+}
+
+variable "ssh_key_secret_description" {
+  description             = "Description of the ssh key secret."
+  type                    = string
+}
 
 #####################################################################
 # NAT Instance Variables
 #####################################################################
-
-
 variable "private_ips_for_ssh" {
   type               = list(string)
   description        = "List of IP Addresses used for SSH Ingress."
 }
 
 #####################################################################
-# NAT Instance Variables
-#####################################################################
-
-
-
-#####################################################################
-# General Resource Variables
+# General Variables
 #####################################################################
 
 variable "environment" {
