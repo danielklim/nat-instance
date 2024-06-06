@@ -1,4 +1,4 @@
-output "vpc_output" {
+output "vpc_arn" {
     description             = "Staging VPC Arn."
     value                   = module.vpc.vpc_arn
 }

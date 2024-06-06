@@ -34,8 +34,8 @@ variable "public_subnet_ids" {
   type                = list(string)
 }
 
-variable "add_nat_testing_instances" {
-  description         = "Option to add NAT Testing Instances in Private Subnets."
+variable "create_nat_testing_instances" {
+  description         = "Flag to add NAT Testing Instances in Private Subnets."
   type                = bool
 }
 

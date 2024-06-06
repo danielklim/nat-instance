@@ -9,13 +9,13 @@ module "vpc" {
 }
 
 module "nat_instance_key_pair" {
-    source                              = "../key_pair"
+    source                              = "../modules/key_pair"
     key_name                            = local.nat_instance_key_name
     tags                                = local.tags
 }
 
 module "ssh_key_secret" {
-    source                              = "../secrets"
+    source                              = "../modules/secrets"
     name                                = local.ssh_key_secret_name
     description                         = local.ssh_key_secret_description
     secret_string                       = module.nat_instance_key_pair.sensitive_output.pem
@@ -23,12 +23,12 @@ module "ssh_key_secret" {
 }
 
 module "nat_instances" {
-    source                              = "../nat_instance"
+    source                              = "../modules/nat_instance"
     nat_instance_ami_id                 = local.nat_instance_ami_id
     main_vpc_id                         = module.vpc.vpc_id
     main_cidr_block                     = local.main_cidr_block
     public_cidr_blocks                  = local.public_cidr_blocks
-    add_nat_testing_instances           = true
+    create_nat_testing_instances        = true
     private_cidr_blocks                 = local.private_cidr_blocks
     public_subnet_ids                   = module.vpc.public_subnets
     private_subnet_ids                  = module.vpc.private_subnets
