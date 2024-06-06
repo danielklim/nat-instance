@@ -1,5 +1,7 @@
 locals {
     environment                         = "testing"
+    ssh_key_secret_name                 = "example_ssh_key_pem_2"
+    ssh_key_secret_description          = "pem used for NAT Instance connection"
 }
 
 
@@ -39,8 +41,8 @@ module "example_nat_instance" {
 
 module "example_ssh_key_secret" {
     source                              = "./secrets"
-    name                                = "example_ssh_key_pem_2"
-    description                         = "pem used for NAT Instance connection"
+    name                                = local.ssh_key_secret_name
+    description                         = local.ssh_key_secret_description
     environment                         = local.environment
     secret_string                       = module.example_nat_instance_key_pair.sensitive_output.pem
 }
