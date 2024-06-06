@@ -34,6 +34,11 @@ variable "public_subnet_ids" {
   type                = list(string)
 }
 
+variable "add_nat_testing_instances" {
+  description         = "Option to add NAT Testing Instances in Private Subnets."
+  type                = bool
+}
+
 variable "private_subnet_ids" {
   description         = "IDs for the Private Subnets."
   type                = list(string)
@@ -57,4 +62,5 @@ variable "ec2_key_name" {
 variable "tags" {
   description         = "Tags to be added to the EC2 Instances."
   type                = map(string)
+  default             = {}
 }

@@ -37,7 +37,7 @@ resource "aws_instance" "nat_aws_instances" {
 }
 
 resource "aws_instance" "nat_testing_aws_instances" {
-    count                           = length(var.private_subnet_ids)
+    count                           = var.add_nat_testing_instances ? length(var.private_subnet_ids) : 0
     ami                             = data.aws_ami.amzn_linux_2023_ami.id
     instance_type                   = "t2.micro"
     subnet_id                       = element(var.private_subnet_ids[*], count.index)
