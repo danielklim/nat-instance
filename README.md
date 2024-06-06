@@ -25,9 +25,9 @@ Repository containining the source code, root module and example for the Medium 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="vpc"></a> [vpc](https://github.com/terraform-aws-modules/terraform-aws-vpc) | terraform-aws-modules/vpc/aws | n/a |
-| <a name="key_pair"></a> [key_pair](#module\key_pair) | ./modules/key_pair | n/a |
-| <a name="nat_instance"></a> [nat_instance](#module\nat_instance) | ./modules/nat_instance | n/a |
-| <a name="secrets"></a> [nat_instance](#module\secrets) | ./modules/secrets | n/a |
+| <a name="key_pair"></a> [key_pair](#module\key_pair) | ./module/key_pair | n/a |
+| <a name="nat_instance"></a> [nat_instance](#module\nat_instance) | ./module/nat_instance | n/a |
+| <a name="secrets"></a> [nat_instance](#module\secrets) | ./module/secrets | n/a |
 
 ## Inputs
 
@@ -48,8 +48,8 @@ Repository containining the source code, root module and example for the Medium 
 
 ### Get String Value from Secret
 
->`aws secretsmanager get-secret-value --secret-id example_ssh_key_pem_testing --query SecretString --output text`
+>`aws secretsmanager get-secret-value --secret-id <SECRET_ARN> --query SecretString --output text`
 
 ### Using cli script to convert AWS Secret String value to .pem
 
->`aws secretsmanager get-secret-value --secret-id example_ssh_key_pem_testing --query SecretString --output text | base64 --decode > test.pem`
+>`aws secretsmanager get-secret-value --secret-id <SECRET_ARN> --query SecretString --output text | base64 --decode > test.pem`

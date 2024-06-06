@@ -53,9 +53,15 @@ variable "ssh_key_secret_description" {
 #####################################################################
 # NAT Instance Variables
 #####################################################################
+
 variable "private_ips_for_ssh" {
-  type               = list(string)
   description        = "List of IP Addresses used for SSH Ingress."
+  type               = list(string)
+}
+
+variable "nat_instance_ami_id" {
+  description       = "Id of AMI used as the base image for the NAT Instance."
+  type              = string
 }
 
 #####################################################################
