@@ -2,6 +2,8 @@
 
 Repository containining the source code, root module for the Medium Article I wrote about creating a NAT Instance using terraform.
 
+https://medium.com/@gazick/how-to-assign-a-static-ip-address-to-aws-lambda-using-nat-instance-2eab02b76d12
+
 ## Usage
 
 ### Creates NAT Instances within each public subnet of a VPC.
