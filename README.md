@@ -2,9 +2,15 @@
 
 Repository containining the source code, root module for the Medium Article I wrote about creating a NAT Instance using terraform.
 
-https://medium.com/@gazick/how-to-assign-a-static-ip-address-to-aws-lambda-using-nat-instance-2eab02b76d12
-
 ## Usage
+
+### Localstack
+
+Even though Localstack correctly responds to terraform when it tries to provision all the resources in this project, the VPC's network settings don't actually get enforced. Therefore, Unless standing this project up is the end itself (rather than just a means to support another project), you probably only need to stand up the VPC. To do this, just run the following:
+
+```bash
+tflocal.bat apply -var-file ./variables/localstack.tfvars --target module.vpc
+```
 
 ### Creates NAT Instances within each public subnet of a VPC.
 
@@ -119,3 +125,13 @@ module "nat_instances" {
 ### Using cli script to convert AWS Secret String value to .pem
 
 >`aws secretsmanager get-secret-value --secret-id <SECRET_ARN> --query SecretString --output text | base64 --decode > test.pem`
+
+## Other References
+
+[int128 Older Example](https://registry.terraform.io/modules/int128/nat-instance/aws/latest)
+
+[int128 Git](https://github.com/int128/terraform-aws-nat-instance)
+
+[Original Article](https://markbarbaric.medium.com/aws-demystified-creating-a-nat-instance-using-terraform-2ba7c8dbac7e)
+
+[Different Article](https://medium.com/@gazick/how-to-assign-a-static-ip-address-to-aws-lambda-using-nat-instance-2eab02b76d12)

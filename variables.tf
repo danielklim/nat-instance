@@ -97,4 +97,5 @@ variable "tags" {
 variable "region" {
   description = "Region for the resources"
   type        = string
+  default     = null
 }
